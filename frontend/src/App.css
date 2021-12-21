@@ -91,3 +91,18 @@ input[type=submit]:hover {
 .home, .result {
   text-align: center;
 }
+.user:before {
+  content: "\1F464";
+  font-size: 4em;
+  display: block;
+}
+.user-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 80px;
+}
+.user {
+  color: #0074d9;
+  background-color: lightsteelblue;
+  padding: 20px;
+}

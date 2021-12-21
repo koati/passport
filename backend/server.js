@@ -24,7 +24,6 @@ app.use(session({
 
 app.use((req, res, next) => {
   const sessUser = req.session.user
-  console.log(sessUser)
   if (sessUser) {
     res.locals.authenticated = true
   } else {
@@ -65,7 +64,7 @@ app.post('/login', async (req, res) => {
   bcrypt.compare(password, user.passwordHash, (err, result) => {
     if (err) {
       console.log(err)
-      return res.setStatus(500)
+      return res.sendStatus(500)
     }
     if (result) {
       const sessUser = { id: user._id, name: user.name, cardNum: cardNum }
@@ -91,6 +90,11 @@ app.get('/user', async (req, res) => {
     return res.json({ name, cardNum })
   }
   return res.status(401).json({ success: false })
+})
+
+app.get('/users', async (req, res) => {
+  const users = await User.find().exec()
+  return res.json(users)
 })
 
 app.listen(port, () => console.log(`Server started on http://localhost:${port}`))
